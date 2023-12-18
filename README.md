@@ -95,7 +95,7 @@ To add your own parser functions for unsupported block types, simply extend the 
 
 You can even override existing block parsers.
 
-**Note:** *The name of the methods must match with Editor.js custom block type.*
+**[Note]** *The name of the methods must match with Editor.js custom block type.*
 
 #### Example:
 
