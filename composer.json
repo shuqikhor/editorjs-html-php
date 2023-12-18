@@ -1,0 +1,26 @@
+{
+	"name": "sqkhor/editorjs-html",
+	"type": "library",
+	"description": "A utility to parse editorjs clean data to HTML. Based on editorjs-html by Pavittar Singh",
+	"keywords": ["editorjs", "html", "parsing", "json", "editorjs-html"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Pavittar Singh",
+			"email": "pavittarx@gmail.com",
+			"homepage": "https://github.com/pavittarx"
+		},
+		{
+			"name": "Shuqi Khor",
+			"email": "hello@sqkhor.com",
+			"homepage": "https://sqkhor.com"
+		}
+	],
+	"require": {
+		"php": "^7.3|^8.0",
+		"ext-gd": "*"
+	},
+	"autoload": {
+		"psr-0": { "edjsHTML": "src/edjsHTML.php" }
+	}
+}
