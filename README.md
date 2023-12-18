@@ -54,6 +54,9 @@ See [Releases](https://github.com/shuqikhor/editorjs-html-php/releases)
 * Code
 * Embed
 
+### Accepted Data Format
+The data passed to `parse()` or `parse_strict()` could be either an undecoded JSON string, or any JSON-decoded format (supports both stdClass and associative array)
+
 ### Parse Entire Editor.js Data
 
 ```php
