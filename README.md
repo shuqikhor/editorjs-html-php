@@ -1,57 +1,40 @@
-# editorjs-html
-A utility to parse editorjs clean data to HTML. 
-  - Use it with plain Javascript/Typescript, React, Angular, Vue or any templating engine/framework of your choice.
+# editorjs-html (PHP Port)
+This is a PHP port of [editorjs-html](https://github.com/pavittarx/editorjs-html) by [@pavittarx](https://github.com/pavittarx).
+
+`editorjs-html` is a utility to parse [Editor.js](https://editorjs.io/) clean data to HTML. This is mainly for those who needs to convert Editor.js clean data (in JSON) to HTML for other uses (eg. for an API call).
+  - Use it with any PHP framework of your choice.
   - Fast, Efficient and Lightweight. 
   - Fully customizable to the core. 
-  - Supports basic editorjs blocks which are customizable as well.
-  - Extendable for any new or custom editorjs blocks.
-
-**[Note]** As of recent release, editorjs v2.10 a read-only mode available. You can use the same to display your editorjs data. However, **someone looking for something lightweight with customizability and more granular control are free to use this library.**
+  - Supports basic Editor.js blocks which are customizable as well.
+  - Extendable for any new or custom Editor.js blocks.
 
 # Installation
 
-### Host on Your Own
-
-* **Browser** - [Get /build/edjsHTML.browser.js](./build/edjsHTML.browser.js)
-
-* **NodeJs** -  [Get /build/edjsHTML.node.js](./build/edjsHTML.node.js)
-
-* **For Both Browser & Node** - [Get /build/edjsHTML.js](./build/edjsHTML.js)
-
-### NPM 
+### Composer
 
 ```shell
-npm install editorjs-html
+composer require sqkhor/editorjs-html
 ```
-
-### CDN
-* https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.js
-* (Browser Only Build): https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.browser.js
 
 ## Usage
 
-### Browser
-```js
-  const edjsParser = edjsHTML();
+```php
+// Get an array of HTML based on original blocks
+$result = edjsHTML::parse($editorjs_clean_data);
 
-  let html = edjsParser.parse(editorjs_clean_data);
+// Enclose in <section> for display
+$sections = array_map(function ($section) {
+  return "<section>$section</section>";
+}, $result);
 
-  console.log(html);
-```
-
-### Nodejs
-
-```js
-  const edjsHTML = require("editorjs-html");
-  const edjsParser = edjsHTML();
-  const html = edjsParser.parse(editorjs_clean_data);
-
-  console.log(html);
+// Join for output
+$html = implode("", $sections);
+echo $html;
 ```
 
 ## Updates 
 
-See [Releases](https://github.com/pavittarx/editorjs-html/releases)
+See [Releases](https://github.com/shuqikhor/editorjs-html-php/releases)
 
 ## Docs
 
@@ -67,89 +50,90 @@ See [Releases](https://github.com/pavittarx/editorjs-html/releases)
 * Code
 * Embed
 
-## Parse Entire EditorJS Data Object
+## Parse Entire Editor.js Data
 
-```js
-  const edjsParser = edjsHTML();
-  const HTML = edjsParser.parse(editorjs_data);
-  // returns array of html strings per block
-  console.log(HTML);
+```php
+  $HTML = edjsHTML::parse($editorjs_data);
+  // returns an array of html strings per block
+  var_export($HTML);
 ```
 
-## Parse Entire EditorJS Data Object (Strict Mode)
+## Parse Entire Editor.js Data (Strict Mode)
 
-```js
-  const edjsParser = edjsHTML();
-  const HTML = edjsParser.parseStrict(editorjs_data);
-  // returns an error
-  if(HTML instanceof Error) throw HTML;
+```php
+try {
+  $HTML = edjsHTML::parse_strict($editorjs_data);
 
   // in case of success, returns an array of strings
-  console.log(HTML);
+  var_export($HTML)
+} catch (\Exception $e) {
+  // returns an error when data is invalid
+}
 ```
 
 ## Parse Single Clean Data Block
 
-```js
-  const edjsParser = edjsHTML();
-  const blockHTML = edjsParser.parseBlock(editorjs_data_block);
-  // returns string of html for this block
-  console.log(blockHTML);
+```php
+  $block_HTML = edjsHTML::parse_block($editorjs_data_block);
+  // returns a string of html for this block
+  var_export(block_HTML);
 ```
-## Get the list of missing parser functions 
+## Get a list of missing parser functions 
 
-```js
-  const edjsParser = edjsHTML();
-  // returns the list of missing parser functions
-  const blockHTML = edjsParser.validate(editorjs_data);
-  console.log(blockHTML);
+```php
+  // returns a list of missing parser functions
+  $block_HTML = edjsHTML::validate($editorjs_data);
+  var_export(block_HTML);
 ```
 
-### Extend For Custom Blocks 
-`editorjs-html`  supports extending its functionality to render custom editorjs blocks. Moroever, You can even override these basic supported blocks.
+## Extend For Custom Blocks 
+To add your own parser functions for unsupported block types, simply extend the `edjsHTML` class with the block parsers as static methods.
 
-* The `edjsHTML()` accepts an optional object that would allow you to extend its functionality. 
+You can even override existing block parsers.
 
-* The name of the function must match with editor-js custom block type.
+**Note:** *The name of the methods must match with Editor.js custom block type.*
 
-
-```js
-  // Your custom editorjs generated block
-  {
-    type: "custom",
-    data: {
-      text: "Hello World"
-    }
- }
-
-```
+#### Example:
 
 ```js
-  // Parse this block in editorjs-html
-  function customParser(block){
-    return `<custom-tag> ${block.data.text} </custom-tag>`;
+// Your custom editorjs generated block
+{
+  type: "custom",
+  data: {
+    text: "Hello World"
   }
-
-  const edjsParser =  edjsHTML({custom: customParser});
-
+}
 ```
 
-[Update] From v2.0.0 onwards, the parser functions recieves full `block` instead of just `data` property of the block. Read [releases](https://github.com/pavittarx/editorjs-html/releases) for more information.
+```php
+// Parse this block in editorjs-html
+class CustomParser extends edjsHTML {
+  static public function custom ($block) {
+    return "<div class=\"custom-block\">{$block['data']['text']}</div>";
+  }
+}
 
-## Contribution 
-Create an issue or send a PR for any contributions you would like to make.
+const HTML = CustomParser::parse($editorjs_data);
+```
 
-I am thankful for everyone who has contributed their own bits to the repository. Even though the library is small and the scope for writing new or lots of features is limited. I still grateful to see a lots of contributions coming in.
+## Design Notes
+**[Note]** *This section is not important.*
 
-## Suggestions & Recommendations
-I would love to have your feedback and any suggestions. You can also let me know, if you need support for any more editorjs blocks. 
+Unlike Javascript/Typescript, which the original library is built on, you can't pass a function as a variable in PHP. This limits the ways we could pass a parser function to the main class.
 
-## Support 
-If you find this helpful, consider giving this repository a Star. You can also buy me a coffee [here](https://www.buymeacoffee.com/pavittarx)
+Therefore I was left with 2 options:
+1. Have separate classes for the main operation and the block parsers. To add your own block parser, extend the parser class and pass it to the main class.
+2. Have a single class for everything. To add your own block, simply extend the one-and-only class.
+
+#1 is the proper way.  
+#2 is easier to use.
+
+I opted for #2.
 
 ## License 
 MIT Public License
 
 ## Author 
-[@pavittarx](https://github.com/pavittarx)
+[@shuqikhor](https://sqkhor.com)
+based on works by [@pavittarx](https://github.com/pavittarx)
 
