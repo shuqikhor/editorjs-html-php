@@ -1,12 +1,16 @@
 # editorjs-html (PHP Port)
 This is a PHP port of [editorjs-html](https://github.com/pavittarx/editorjs-html) by [@pavittarx](https://github.com/pavittarx).
 
-`editorjs-html` is a utility to parse [Editor.js](https://editorjs.io/) clean data to HTML. This is mainly for those who needs to convert Editor.js clean data (in JSON) to HTML for other uses (eg. for an API call).
+`editorjs-html` is a utility to parse [Editor.js](https://editorjs.io/) clean data (JSON) to HTML.
   - Use it with any PHP framework of your choice.
   - Fast, Efficient and Lightweight. 
   - Fully customizable to the core. 
   - Supports basic Editor.js blocks which are customizable as well.
   - Extendable for any new or custom Editor.js blocks.
+
+**[Note]** *You don't actually need to convert Editor.js data to HTML for display. For that purpose, simply embed Editor.js in read-only mode.*
+
+**[Note]** *This library is mainly for those who needs to convert Editor.js clean data to HTML for other uses, such as for API calls to other systems, or for migration to another editor.*
 
 # Installation
 
