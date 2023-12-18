@@ -12,7 +12,7 @@ This is a PHP port of [editorjs-html](https://github.com/pavittarx/editorjs-html
 
 **[Note]** *This library is mainly for those who needs to convert Editor.js clean data to HTML for other uses, such as for API calls to other systems, or for migration to another editor.*
 
-# Installation
+## Installation
 
 ### Composer
 
