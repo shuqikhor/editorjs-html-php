@@ -54,7 +54,7 @@ See [Releases](https://github.com/shuqikhor/editorjs-html-php/releases)
 * Code
 * Embed
 
-## Parse Entire Editor.js Data
+### Parse Entire Editor.js Data
 
 ```php
   $HTML = edjsHTML::parse($editorjs_data);
@@ -62,7 +62,7 @@ See [Releases](https://github.com/shuqikhor/editorjs-html-php/releases)
   var_export($HTML);
 ```
 
-## Parse Entire Editor.js Data (Strict Mode)
+### Parse Entire Editor.js Data (Strict Mode)
 
 ```php
 try {
@@ -75,14 +75,14 @@ try {
 }
 ```
 
-## Parse Single Clean Data Block
+### Parse Single Clean Data Block
 
 ```php
   $block_HTML = edjsHTML::parse_block($editorjs_data_block);
   // returns a string of html for this block
   var_export(block_HTML);
 ```
-## Get a list of missing parser functions 
+### Get a list of missing parser functions 
 
 ```php
   // returns a list of missing parser functions
@@ -90,7 +90,7 @@ try {
   var_export(block_HTML);
 ```
 
-## Extend For Custom Blocks 
+### Extend For Custom Blocks 
 To add your own parser functions for unsupported block types, simply extend the `edjsHTML` class with the block parsers as static methods.
 
 You can even override existing block parsers.
