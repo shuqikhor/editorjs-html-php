@@ -22,7 +22,7 @@ class edjsHTML {
 		$parser_free_blocks = static::validate($data);
 
 		if (count($parser_free_blocks)) {
-			throw new \Exception("Parser Functions missing for blocks: " . implode(", ", $parser_free_blocks));
+			throw new \Exception("Parser functions missing for blocks: " . implode(", ", $parser_free_blocks));
 		}
 
 		$parsed = [];
@@ -67,6 +67,6 @@ class edjsHTML {
 	}
 
 	static protected function parse_function_error (string $type) {
-		return new \Exception("The Parser function of type \"{$type}\" is not defined.\nDefine your custom parser functions as: https://github.com/shuqikhor/editorjs-html-php#extend-for-custom-blocks");
+		return new \Exception("The parser function of type \"{$type}\" is not defined.\nDefine your custom parser functions as: https://github.com/shuqikhor/editorjs-html-php#extend-for-custom-blocks");
 	}
 }
