@@ -21,6 +21,6 @@
 		"ext-gd": "*"
 	},
 	"autoload": {
-		"psr-0": { "edjsHTML": "src/edjsHTML.php" }
+		"classmap": ["src/edjsHTML.php"]
 	}
 }
