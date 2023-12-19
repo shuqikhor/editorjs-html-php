@@ -130,12 +130,13 @@ Unlike Javascript/Typescript, which the original library is built on, you can't 
 
 Therefore I was left with 2 options:
 1. Have separate classes for the main operation and the block parsers. To add your own block parser, extend the parser class and pass it to the main class.
-2. Have a single class for everything. To add your own block, simply extend the one-and-only class.
+2. Have block parsers all over the places, then register each of them to the main class.
+3. Have a single class for everything. To add your own block, simply extend the one-and-only class.
 
-#1 is the proper way.  
-#2 is easier to use.
+#1 and #2 are the proper ways.  
+#3 is easier to use.
 
-I opted for #2.
+I opted for #3.
 
 ## License 
 MIT Public License
